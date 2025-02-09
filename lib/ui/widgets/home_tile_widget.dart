@@ -1,19 +1,24 @@
+import 'package:calculators/config/constants.dart';
 import 'package:flutter/material.dart';
 
-class HomeTile extends StatefulWidget {
+class HomeTileWidget extends StatefulWidget {
+  /// Display [HomeTileWidget] which allows navigation to different tools
+
   final String toolName;
   final void Function() nav;
-  const HomeTile({
+
+  const HomeTileWidget({
     super.key,
     required this.toolName,
     required this.nav,
   });
 
   @override
-  State<HomeTile> createState() => _HomeTileState();
+  State<HomeTileWidget> createState() => _HomeTileWidgetState();
 }
 
-class _HomeTileState extends State<HomeTile> {
+class _HomeTileWidgetState extends State<HomeTileWidget> {
+  // For button press animation
   bool isPressed = false;
   @override
   Widget build(BuildContext context) {
@@ -21,8 +26,9 @@ class _HomeTileState extends State<HomeTile> {
       child: Tooltip(
         message: "Navigate to ${widget.toolName}",
         child: InkWell(
-          borderRadius: BorderRadius.circular(32),
+          borderRadius: kBorderRadius,
           onTap: () {
+            // Button press animation
             setState(() {
               isPressed = true;
             });
@@ -36,28 +42,16 @@ class _HomeTileState extends State<HomeTile> {
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 100),
             decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: Colors.black, width: 3),
-              borderRadius: BorderRadius.circular(32),
-              boxShadow: [
-                isPressed
-                    ? BoxShadow()
-                    : BoxShadow(
-                        color: Colors.black,
-                        blurRadius: 8,
-                        offset: Offset(4, 4),
-                        blurStyle: BlurStyle.solid,
-                      ),
-              ],
+              color: white,
+              border: Border.all(color: black, width: 3),
+              borderRadius: kBorderRadius,
+              boxShadow: [isPressed ? BoxShadow() : kShadow],
             ),
             child: Center(
               child: Text(
                 widget.toolName,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: subHeadingStyle,
               ),
             ),
           ),

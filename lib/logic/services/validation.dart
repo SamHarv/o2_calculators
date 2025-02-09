@@ -1,5 +1,6 @@
 class Validation {
-  /// Class to validate user input
+  /// Class for [Validation] of user input
+  /// Ensures each field is not empty and is a number
 
   String? validatePurchasePrice(String value) {
     if (value.isEmpty) {

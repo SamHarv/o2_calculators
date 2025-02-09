@@ -1,12 +1,16 @@
-import 'package:calculators/ui/widgets/input_field_widget.dart';
+import 'package:calculators/config/constants.dart';
+import 'package:calculators/ui/widgets/output_value_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../widgets/input_field_widget.dart';
 import '../../data/models/mortgage_calculator_model.dart';
 import '../../logic/mortgage_calculator/mortgage_calculator.dart';
 import '../../logic/services/validation.dart';
 
 class MortgageView extends StatefulWidget {
+  /// UI for the [MortgageView]
+
   const MortgageView({super.key});
 
   @override
@@ -14,25 +18,25 @@ class MortgageView extends StatefulWidget {
 }
 
 class _MortgageViewState extends State<MortgageView> {
+  // Input controllers
   final purchasePriceController = TextEditingController();
   final initialDepositController = TextEditingController();
   final interestRateController = TextEditingController();
   final loanTermController = TextEditingController();
+  // Button state for animation
   bool isPressed = false;
+  // Validate inputs
   final validate = Validation();
-
+  // Number formatter for outputs
   final formatter = NumberFormat('#,##0.00');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        automaticallyImplyLeading: true,
-      ),
+      appBar: kAppBar,
       body: SafeArea(
           child: Padding(
-        padding: const EdgeInsets.all(32),
+        padding: kPadding,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           spacing: 32,
@@ -40,36 +44,39 @@ class _MortgageViewState extends State<MortgageView> {
             Text(
               "Mortgage Calculator",
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
+              style: headingStyle,
             ),
+            // Purchase Price field
             InputFieldWidget(
               controller: purchasePriceController,
               label: "Purchase Price",
               icon: Icons.attach_money,
             ),
+            // Initial Deposit field
             InputFieldWidget(
               controller: initialDepositController,
               label: "Initial Deposit",
               icon: Icons.attach_money,
             ),
+            // Interest Rate field
             InputFieldWidget(
               controller: interestRateController,
               label: "Interest Rate",
               icon: Icons.percent,
             ),
+            // Loan Term field
             InputFieldWidget(
               controller: loanTermController,
               label: "Loan Term",
               icon: Icons.schedule,
             ),
+            // Calculate button
             Tooltip(
               message: "Calculate",
               child: InkWell(
-                borderRadius: BorderRadius.circular(32),
+                borderRadius: kBorderRadius,
                 onTap: () {
+                  // Handle button press animation
                   setState(() {
                     isPressed = true;
                   });
@@ -79,6 +86,7 @@ class _MortgageViewState extends State<MortgageView> {
                       isPressed = false;
                     });
                   });
+                  // Validate inputs
                   try {
                     final purchasePrice = validate.validatePurchasePrice(
                         purchasePriceController.text.trim());
@@ -93,24 +101,18 @@ class _MortgageViewState extends State<MortgageView> {
                         .validateLoanTerm(loanTermController.text.trim());
                     loanTerm != null ? throw loanTerm : null;
                   } catch (e) {
+                    // Display error dialog
                     showDialog(
                         context: context,
                         builder: (context) {
                           return AlertDialog(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32),
-                              side: const BorderSide(
-                                color: Colors.black,
-                                width: 3,
-                              ),
+                              borderRadius: kBorderRadius,
+                              side: kBorderSide,
                             ),
                             title: Text(
                               e.toString(),
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
+                              style: subHeadingStyle,
                             ),
                             actions: [
                               TextButton(
@@ -119,7 +121,7 @@ class _MortgageViewState extends State<MortgageView> {
                                 },
                                 child: const Text(
                                   "Close",
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(color: black),
                                 ),
                               ),
                             ],
@@ -127,6 +129,7 @@ class _MortgageViewState extends State<MortgageView> {
                         });
                     return;
                   }
+                  // Create mortgage calculator object with valid inputs
                   final mc = MortgageCalculator(
                     purchasePrice:
                         double.parse(purchasePriceController.text.trim()),
@@ -136,10 +139,13 @@ class _MortgageViewState extends State<MortgageView> {
                         double.parse(interestRateController.text.trim()),
                     loanTerm: double.parse(loanTermController.text.trim()),
                   );
+                  // Create mortgage calculator logic object
                   final mCLogic = MortgageCalculatorLogic();
+                  // Calculate mortgage values and display outputs
                   showDialog(
                     context: context,
                     builder: (context) {
+                      // Calculate outputs
                       double stampDuty =
                           mCLogic.calculateStampDuty(mc.purchasePrice);
                       double loanAmount = mCLogic.calculateFundsNeeded(
@@ -154,6 +160,7 @@ class _MortgageViewState extends State<MortgageView> {
                       double fortnightlyPayment = weeklyPayment * 2;
                       double annualPayment = weeklyPayment * 52;
                       double totalPayment = annualPayment * mc.loanTerm;
+                      // Format outputs
                       formatter.format(stampDuty);
                       formatter.format(loanAmount);
                       formatter.format(annualPayment);
@@ -161,170 +168,61 @@ class _MortgageViewState extends State<MortgageView> {
                       formatter.format(fortnightlyPayment);
                       formatter.format(weeklyPayment);
                       formatter.format(totalPayment);
+                      // Display outputs in dialog
                       return AlertDialog(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(32),
-                          side: const BorderSide(
-                            color: Colors.black,
-                            width: 3,
-                          ),
+                          borderRadius: kBorderRadius,
+                          side: kBorderSide,
                         ),
                         title: const Text(
                           "Mortgage Calculation",
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
+                          style: subHeadingStyle,
                         ),
                         content: Column(
                           spacing: 8,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Stamp Duty:",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  "\$${formatter.format(stampDuty)}",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
+                            // Stamp Duty
+                            OutputValueWidget(
+                              label: "Stamp Duty:",
+                              value: "\$${formatter.format(stampDuty)}",
+                            ),
+                            // Loan Amount
+                            OutputValueWidget(
+                              label: "Loan Amount:",
+                              value: "\$${formatter.format(loanAmount)}",
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  "Loan Amount:",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  "\$${formatter.format(loanAmount)}",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                Text("Repayments", style: outputValueStyle),
                               ],
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Repayments",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
+                            // Annual repayment
+                            OutputValueWidget(
+                              label: "Annual:",
+                              value: "\$${formatter.format(annualPayment)}",
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Annual:",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  "\$${formatter.format(annualPayment)}",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
+                            // Monthly repayment
+                            OutputValueWidget(
+                              label: "Monthly:",
+                              value: "\$${formatter.format(monthlyPayment)}",
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Monthly:",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  "\$${formatter.format(monthlyPayment)}",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Fortnightly:",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
+                            // Fortnightly repayment
+                            OutputValueWidget(
+                              label: "Fortnightly:",
+                              value:
                                   "\$${formatter.format(fortnightlyPayment)}",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Weekly:",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  "\$${formatter.format(weeklyPayment)}",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
+                            // Weekly repayment
+                            OutputValueWidget(
+                              label: "Weekly:",
+                              value: "\$${formatter.format(weeklyPayment)}",
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Total:",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  "\$${formatter.format(totalPayment)}",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
+                            // Total repayment
+                            OutputValueWidget(
+                              label: "Total:",
+                              value: "\$${formatter.format(totalPayment)}",
                             ),
                           ],
                         ),
@@ -335,7 +233,7 @@ class _MortgageViewState extends State<MortgageView> {
                             },
                             child: const Text(
                               "Close",
-                              style: TextStyle(color: Colors.black),
+                              style: TextStyle(color: black),
                             ),
                           ),
                         ],
@@ -346,29 +244,16 @@ class _MortgageViewState extends State<MortgageView> {
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 100),
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.black, width: 3),
-                    borderRadius: BorderRadius.circular(32),
-                    boxShadow: [
-                      isPressed
-                          ? BoxShadow()
-                          : BoxShadow(
-                              color: Colors.black,
-                              blurRadius: 8,
-                              offset: Offset(4, 4),
-                              blurStyle: BlurStyle.solid,
-                            ),
-                    ],
+                    color: white,
+                    border: Border.all(color: black, width: 3),
+                    borderRadius: kBorderRadius,
+                    boxShadow: [isPressed ? BoxShadow() : kShadow],
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(32),
+                    padding: kPadding,
                     child: Text(
                       "Calculate",
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: subHeadingStyle,
                     ),
                   ),
                 ),

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../config/constants.dart';
+
 class InputFieldWidget extends StatefulWidget {
+  /// Display [InputFieldWidget] which allows user to input values
+
   final TextEditingController controller;
   final String label;
   final IconData icon;
@@ -21,31 +25,22 @@ class _InputFieldWidgetState extends State<InputFieldWidget> {
   Widget build(BuildContext context) {
     return TextField(
       style: TextStyle(
-        color: Colors.black,
+        color: black,
         fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.number, // Numeric inputs
       controller: widget.controller,
       decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(32)),
-          borderSide: BorderSide(color: Colors.black, width: 3),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(32)),
-          borderSide: BorderSide(color: Colors.black, width: 3),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(32)),
-          borderSide: BorderSide(color: Colors.black, width: 3),
-        ),
+        border: inputBorder,
+        enabledBorder: inputBorder,
+        focusedBorder: inputBorder,
         prefixIcon: Icon(widget.icon),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: white,
         labelText: widget.label,
         labelStyle: TextStyle(
-          color: Colors.black,
+          color: black,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
