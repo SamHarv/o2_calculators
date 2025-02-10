@@ -77,7 +77,7 @@ class CompoundInterestCalculatorLogic {
 
   /// Calculate the total interest earned
   double calculateTotalInterestEarned(
-      double totalInvestment, double totalValue) {
+      double totalValue, double totalInvestment) {
     return totalValue - totalInvestment;
   }
 }

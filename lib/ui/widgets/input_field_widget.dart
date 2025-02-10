@@ -24,11 +24,7 @@ class _InputFieldWidgetState extends State<InputFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      style: TextStyle(
-        color: black,
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-      ),
+      style: inputFieldStyle,
       keyboardType: TextInputType.number, // Numeric inputs
       controller: widget.controller,
       decoration: InputDecoration(
@@ -39,11 +35,7 @@ class _InputFieldWidgetState extends State<InputFieldWidget> {
         filled: true,
         fillColor: white,
         labelText: widget.label,
-        labelStyle: TextStyle(
-          color: black,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
+        labelStyle: inputFieldStyle,
       ),
     );
   }

@@ -37,6 +37,7 @@ class _CompoundInterestViewState extends State<CompoundInterestView> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
       appBar: kAppBar,
       body: SafeArea(
@@ -57,30 +58,36 @@ class _CompoundInterestViewState extends State<CompoundInterestView> {
               label: "Initial Investment",
               icon: Icons.attach_money,
             ),
-
+            // Frequency of recurring investment dropdown
             DropdownMenu(
-              label: Text("Recurring Investment Frequency"),
+              label: Text("Recurring Frequency"),
               width: double.infinity,
+              menuStyle: MenuStyle(
+                // Make menu same width as input fields
+                maximumSize:
+                    WidgetStateProperty.all(Size.fromWidth(mediaWidth - 64)),
+                backgroundColor: WidgetStateProperty.all(white),
+                elevation: WidgetStateProperty.all(8),
+                shape: WidgetStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: kBorderRadius,
+                    side: kBorderSide,
+                  ),
+                ),
+              ),
               inputDecorationTheme: InputDecorationTheme(
                 border: inputBorder,
                 enabledBorder: inputBorder,
                 focusedBorder: inputBorder,
                 filled: true,
                 fillColor: white,
-                labelStyle: TextStyle(
-                  color: black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                labelStyle: inputFieldStyle,
               ),
-              textStyle: TextStyle(
-                color: black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              textStyle: inputFieldStyle,
               enableFilter: false,
-              hintText: "Recurring Investment Frequency",
+              hintText: "Recurring Frequency",
               onSelected: (frequency) {
+                // Enable/ disable recurring investment field based on frequency
                 frequency == InvestmentFrequency.none
                     ? setState(() {
                         recurringInvestmentEnabled = false;
@@ -120,7 +127,7 @@ class _CompoundInterestViewState extends State<CompoundInterestView> {
                 ),
               ],
             ),
-            // Recurring Investment field
+            // Recurring Investment value field
             TextField(
               style: TextStyle(
                 color: recurringInvestmentEnabled ? black : Colors.grey,
@@ -155,13 +162,13 @@ class _CompoundInterestViewState extends State<CompoundInterestView> {
             // Duration of Investment field
             InputFieldWidget(
               controller: durationYearsController,
-              label: "Duration of Investment (Years)",
+              label: "Duration (Years)",
               icon: Icons.schedule,
             ),
             // Expected Interest Rate field
             InputFieldWidget(
               controller: annualInterestRateController,
-              label: "Expected Interest Rate",
+              label: "Interest Rate",
               icon: Icons.percent,
             ),
             // Calculate button
@@ -240,25 +247,27 @@ class _CompoundInterestViewState extends State<CompoundInterestView> {
                         ? double.parse(
                             recurringInvestmentController.text.trim())
                         : 0,
-                    investmentFrequency: investmentFrequency!,
+                    investmentFrequency: investmentFrequency,
                     durationYears:
                         int.parse(durationYearsController.text.trim()),
                     annualInterestRate:
                         double.parse(annualInterestRateController.text.trim()),
                   );
-                  // Create mortgage calculator logic object
+                  // Create compound interest calculator logic object
                   final cicLogic = CompoundInterestCalculatorLogic();
-                  // Calculate mortgage values and display outputs
+                  // Calculate compound interest values and display outputs
                   showDialog(
                     context: context,
                     builder: (context) {
                       // Calculate outputs
+                      // Total amount invested
                       double totalInvestment =
                           cicLogic.calculateTotalInvestment(
                               cic.initialInvestment,
                               cic.recurringInvestment,
                               cic.investmentFrequency,
                               cic.durationYears);
+                      // Value of investment for each year and total value
                       List<String> yearlyValues = [];
                       double totalValue = 0;
                       (yearlyValues, totalValue) = cicLogic.calculateTotalValue(
@@ -268,14 +277,15 @@ class _CompoundInterestViewState extends State<CompoundInterestView> {
                         cic.annualInterestRate,
                         cic.investmentFrequency,
                       );
+                      // Total interest earned
                       double totalInterest =
                           cicLogic.calculateTotalInterestEarned(
-                        totalInvestment,
                         totalValue,
+                        totalInvestment,
                       );
                       // Display outputs in dialog
                       return AlertDialog(
-                        scrollable: true,
+                        scrollable: true, // Allow scrolling for long outputs
                         shape: RoundedRectangleBorder(
                           borderRadius: kBorderRadius,
                           side: kBorderSide,
@@ -299,14 +309,14 @@ class _CompoundInterestViewState extends State<CompoundInterestView> {
                                 label: "Year ${i + 1}:",
                                 value: yearlyValues[i],
                               ),
-                            // Total value of investment
+                            // Total value of investment at end
                             OutputValueWidget(
                               label: "Total Value:",
                               value: "\$${formatter.format(totalValue)}",
                             ),
                             // Total interest earned
                             OutputValueWidget(
-                              label: "Total Interest Earned:",
+                              label: "Interest Earned:",
                               value: "\$${formatter.format(totalInterest)}",
                             ),
                           ],
@@ -326,6 +336,7 @@ class _CompoundInterestViewState extends State<CompoundInterestView> {
                     },
                   );
                 },
+                // Button
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 100),
                   decoration: BoxDecoration(

@@ -18,6 +18,13 @@ const subHeadingStyle = TextStyle(
   color: Colors.black,
 );
 
+// Style for input fields
+const inputFieldStyle = TextStyle(
+  color: Colors.black,
+  fontSize: 20,
+  fontWeight: FontWeight.bold,
+);
+
 // Style for output values for dialog
 const outputValueStyle = TextStyle(
   fontSize: 16,
