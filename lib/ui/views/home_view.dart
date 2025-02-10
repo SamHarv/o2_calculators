@@ -2,6 +2,7 @@ import 'package:calculators/config/constants.dart';
 import 'package:flutter/material.dart';
 
 import '../../logic/services/url_launcher.dart';
+import 'compound_interest_view.dart';
 import 'mortgage_view.dart';
 import '../widgets/home_tile_widget.dart';
 
@@ -35,10 +36,12 @@ class HomeView extends StatelessWidget {
                   }),
               HomeTileWidget(
                 toolName: "Compound Interest Calculator",
-                nav: () {},
-                // () => Navigator.of(context).push(
-                //   MaterialPageRoute(builder: (context) => const CompoundInterestView()),
-                // ),
+                nav: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => const CompoundInterestView()),
+                  );
+                },
               ),
               Tooltip(
                 message: "Launch the O2Tech website",

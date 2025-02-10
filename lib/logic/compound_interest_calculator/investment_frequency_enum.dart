@@ -1,2 +1,2 @@
 // Enum for recurring investment frequency
-enum InvestmentFrequency { daily, weekly, fortnightly, monthly, annually }
+enum InvestmentFrequency { none, daily, weekly, fortnightly, monthly, annually }

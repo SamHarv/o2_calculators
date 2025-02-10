@@ -1,7 +1,8 @@
 import 'dart:math';
 
 class MortgageCalculatorLogic {
-  /// [MortgageCalculatorLogic] is a class that contains the calculationd for the mortgage calculator.
+  /// [MortgageCalculatorLogic] is a class that contains the calculationd for
+  /// the mortgage calculator.
 
   // Calculate stamp duty based on the purchase price
   double calculateStampDuty(double purchasePrice) {

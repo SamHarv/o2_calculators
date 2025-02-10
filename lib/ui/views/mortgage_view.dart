@@ -160,14 +160,6 @@ class _MortgageViewState extends State<MortgageView> {
                       double fortnightlyPayment = weeklyPayment * 2;
                       double annualPayment = weeklyPayment * 52;
                       double totalPayment = annualPayment * mc.loanTerm;
-                      // Format outputs
-                      formatter.format(stampDuty);
-                      formatter.format(loanAmount);
-                      formatter.format(annualPayment);
-                      formatter.format(monthlyPayment);
-                      formatter.format(fortnightlyPayment);
-                      formatter.format(weeklyPayment);
-                      formatter.format(totalPayment);
                       // Display outputs in dialog
                       return AlertDialog(
                         shape: RoundedRectangleBorder(
