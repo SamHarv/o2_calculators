@@ -1,16 +1,13 @@
-# calculators
+# O2Tech Calculators
 
-A new Flutter project.
+Mortgage Repayment Calculator - specifically for those based in Victoria, Australia due to stamp duty calculation.
 
-## Getting Started
+Compound Interest Calculator with no geographical boundaries.
 
-This project is a starting point for a Flutter application.
+Both packaged in an appealing user interface.
 
-A few resources to get you started if this is your first Flutter project:
+## Supported Platforms
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [iOS](https://apps.apple.com/us/app/o2tech-calculators/id6741880330)
+- [Android](https://play.google.com/store/apps/details?id=com.o2tech.calculators)
+- [Web](https://o2-calculators.web.app/)
