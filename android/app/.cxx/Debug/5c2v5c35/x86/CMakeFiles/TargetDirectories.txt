@@ -1,0 +1,2 @@
+/Users/samharvey/development/flutter_apps/calculators/android/app/.cxx/Debug/5c2v5c35/x86/CMakeFiles/edit_cache.dir
+/Users/samharvey/development/flutter_apps/calculators/android/app/.cxx/Debug/5c2v5c35/x86/CMakeFiles/rebuild_cache.dir
