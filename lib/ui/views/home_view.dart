@@ -24,10 +24,6 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       body: Stack(
         children: [
-          kIsWeb
-              ? SizedBox()
-              : Align(
-                  alignment: Alignment.bottomCenter, child: BannerAdWidget()),
           SafeArea(
             child: Padding(
               padding: kPadding,
@@ -57,21 +53,30 @@ class _HomeViewState extends State<HomeView> {
                       );
                     },
                   ),
-                  Tooltip(
-                    message: "Launch the O2Tech website",
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(128),
-                      onTap: () => UrlLauncher.launchO2Tech(),
-                      child: Image.asset(
-                        'images/logo.png',
-                        height: 50,
+                  Column(
+                    children: [
+                      Tooltip(
+                        message: "Launch the O2Tech website",
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(128),
+                          onTap: () => UrlLauncher.launchO2Tech(),
+                          child: Image.asset(
+                            'images/logo.png',
+                            height: 50,
+                          ),
+                        ),
                       ),
-                    ),
+                      const SizedBox(height: 50),
+                    ],
                   ),
                 ],
               ),
             ),
           ),
+          kIsWeb
+              ? SizedBox()
+              : Align(
+                  alignment: Alignment.bottomCenter, child: BannerAdWidget()),
         ],
       ),
     );

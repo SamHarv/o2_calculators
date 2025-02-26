@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import '../ui/widgets/banner_ad_widget.dart';
 
 // Used colours
 const black = Colors.black;
@@ -58,4 +61,8 @@ const kShadow = BoxShadow(
 final kAppBar = AppBar(
   backgroundColor: Colors.transparent,
   automaticallyImplyLeading: true,
+  centerTitle: true,
+  title: kIsWeb
+      ? SizedBox()
+      : Align(alignment: Alignment.bottomCenter, child: BannerAdWidget()),
 );

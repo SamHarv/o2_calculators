@@ -70,8 +70,18 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
       child: _bannerAd == null
           // Nothing to render yet.
           ? const SizedBox()
+          // ? Container(
+          //     height: widget.adSize.height.toDouble(),
+          //     width: widget.adSize.width.toDouble(),
+          //     decoration: BoxDecoration(
+          //       border: Border.all(color: Colors.black),
+          //     ),
+          //   )
           // The actual ad.
-          : AdWidget(ad: _bannerAd!),
+          : Container(
+              decoration:
+                  BoxDecoration(border: Border.all(color: Colors.black)),
+              child: AdWidget(ad: _bannerAd!)),
     );
   }
 }
