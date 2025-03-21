@@ -31,12 +31,27 @@ class MortgageCalculatorLogic {
       return 1564 + ((purchasePrice - 97000) / 100) * 3.5;
     } else if (purchasePrice > 364000 && purchasePrice <= 1212000) {
       return 10909 + ((purchasePrice - 364000) / 100) * 4.5;
-    } else {
+    } else if (purchasePrice > 1212000 && purchasePrice <= 3636000) {
       return 49069 + ((purchasePrice - 1212000) / 100) * 5.5;
+    } else {
+      return 182389 + ((purchasePrice - 3636000) / 100) * 7;
     }
   }
 
-  // QLD Steamp Duty
+  // QLD Stamp Duty
+  double qldCalculateStampDuty(double purchasePrice) {
+    if (purchasePrice <= 5000) {
+      return 0;
+    } else if (purchasePrice > 5000 && purchasePrice <= 75000) {
+      return ((purchasePrice - 5000).ceil()) / 100 * 1.5;
+    } else if (purchasePrice > 75000 && purchasePrice <= 540000) {
+      return 1050 + ((purchasePrice - 75000).ceil()) / 100 * 3.5;
+    } else if (purchasePrice > 540000 && purchasePrice <= 1000000) {
+      return 17325 + ((purchasePrice - 540000).ceil()) / 100 * 4.5;
+    } else {
+      return 38025 + ((purchasePrice - 1000000).ceil()) / 100 * 5.75;
+    }
+  }
 
   // WA Stamp Duty
 
