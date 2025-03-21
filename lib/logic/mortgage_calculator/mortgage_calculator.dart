@@ -43,19 +43,53 @@ class MortgageCalculatorLogic {
     if (purchasePrice <= 5000) {
       return 0;
     } else if (purchasePrice > 5000 && purchasePrice <= 75000) {
-      return ((purchasePrice - 5000).ceil()) / 100 * 1.5;
+      return ((purchasePrice - 5000) / 100.ceil()) * 1.5;
     } else if (purchasePrice > 75000 && purchasePrice <= 540000) {
-      return 1050 + ((purchasePrice - 75000).ceil()) / 100 * 3.5;
+      return 1050 + ((purchasePrice - 75000) / 100.ceil()) * 3.5;
     } else if (purchasePrice > 540000 && purchasePrice <= 1000000) {
-      return 17325 + ((purchasePrice - 540000).ceil()) / 100 * 4.5;
+      return 17325 + ((purchasePrice - 540000) / 100.ceil()) * 4.5;
     } else {
-      return 38025 + ((purchasePrice - 1000000).ceil()) / 100 * 5.75;
+      return 38025 + ((purchasePrice - 1000000) / 100.ceil()) * 5.75;
     }
   }
 
   // WA Stamp Duty
+  double waCalculateStampDuty(double purchasePrice) {
+    if (purchasePrice <= 120000) {
+      return (purchasePrice / 100).ceil() * 1.9;
+    } else if (purchasePrice > 120000 && purchasePrice <= 150000) {
+      return 2280 + ((purchasePrice - 120000) / 100).ceil() * 2.85;
+    } else if (purchasePrice > 150000 && purchasePrice <= 360000) {
+      return 3135 + ((purchasePrice - 150000) / 100).ceil() * 3.8;
+    } else if (purchasePrice > 360000 && purchasePrice <= 725000) {
+      return 11115 + ((purchasePrice - 360000) / 100).ceil() * 4.75;
+    } else {
+      return 28453 + ((purchasePrice - 725000) / 100).ceil() * 5.15;
+    }
+  }
 
   // SA Stamp Duty
+  double saCalculateStampDuty(double purchasePrice) {
+    if (purchasePrice <= 12000) {
+      return ((purchasePrice / 100).ceil()) * 1;
+    } else if (purchasePrice > 12000 && purchasePrice <= 30000) {
+      return 120 + ((purchasePrice - 12000) / 100).ceil() * 2;
+    } else if (purchasePrice > 30000 && purchasePrice <= 50000) {
+      return 480 + ((purchasePrice - 30000) / 100).ceil() * 3;
+    } else if (purchasePrice > 50000 && purchasePrice <= 100000) {
+      return 1080 + ((purchasePrice - 50000) / 100).ceil() * 3.5;
+    } else if (purchasePrice > 100000 && purchasePrice <= 200000) {
+      return 2830 + ((purchasePrice - 100000) / 100).ceil() * 4;
+    } else if (purchasePrice > 200000 && purchasePrice <= 250000) {
+      return 6830 + ((purchasePrice - 200000) / 100).ceil() * 4.25;
+    } else if (purchasePrice > 250000 && purchasePrice <= 300000) {
+      return 8955 + ((purchasePrice - 250000) / 100).ceil() * 4.75;
+    } else if (purchasePrice > 300000 && purchasePrice <= 500000) {
+      return 11330 + ((purchasePrice - 300000) / 100).ceil() * 5;
+    } else {
+      return 21330 + ((purchasePrice - 500000) / 100).ceil() * 5.5;
+    }
+  }
 
   // TAS Stamp Duty
 
