@@ -152,7 +152,7 @@ class _MortgageViewState extends State<MortgageView> {
                           builder: (context) {
                             // Calculate outputs
                             double stampDuty =
-                                mCLogic.calculateStampDuty(mc.purchasePrice);
+                                mCLogic.vicCalculateStampDuty(mc.purchasePrice);
                             double loanAmount = mCLogic.calculateFundsNeeded(
                                 mc.initialDeposit, mc.purchasePrice, stampDuty);
                             double totalNumberWeeklyPayments = mCLogic
