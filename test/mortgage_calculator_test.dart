@@ -109,5 +109,33 @@ void main() {
       // Test 16
       expect(mortgageCalculatorLogic.saCalculateStampDuty(500001), 21335.5);
     });
+
+    test('TAS Stamp Duty Calculation', () {
+      // Test the TAS stamp duty calculation
+      // Test 1
+      expect(mortgageCalculatorLogic.tasCalculateStampDuty(3000), 50.0);
+      // Test 2
+      expect(mortgageCalculatorLogic.tasCalculateStampDuty(3001), 51.75);
+      // Test 3
+      expect(mortgageCalculatorLogic.tasCalculateStampDuty(25000), 435.0);
+      // Test 4
+      expect(mortgageCalculatorLogic.tasCalculateStampDuty(25001), 437.25);
+      // Test 5
+      expect(mortgageCalculatorLogic.tasCalculateStampDuty(75000), 1560.0);
+      // Test 6
+      expect(mortgageCalculatorLogic.tasCalculateStampDuty(75001), 1563.5);
+      // Test 7
+      expect(mortgageCalculatorLogic.tasCalculateStampDuty(200000), 5935.0);
+      // Test 8
+      expect(mortgageCalculatorLogic.tasCalculateStampDuty(200001), 5939.0);
+      // Test 9
+      expect(mortgageCalculatorLogic.tasCalculateStampDuty(375000), 12935.0);
+      // Test 10
+      expect(mortgageCalculatorLogic.tasCalculateStampDuty(375001), 12939.25);
+      // Test 11
+      expect(mortgageCalculatorLogic.tasCalculateStampDuty(725000), 27810.0);
+      // Test 12
+      expect(mortgageCalculatorLogic.tasCalculateStampDuty(725001), 27814.5);
+    });
   });
 }

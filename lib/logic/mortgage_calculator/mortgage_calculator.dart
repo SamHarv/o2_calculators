@@ -92,6 +92,23 @@ class MortgageCalculatorLogic {
   }
 
   // TAS Stamp Duty
+  double tasCalculateStampDuty(double purchasePrice) {
+    if (purchasePrice <= 3000) {
+      return 50;
+    } else if (purchasePrice > 3000 && purchasePrice <= 25000) {
+      return 50 + ((purchasePrice - 3000) / 100).ceil() * 1.75;
+    } else if (purchasePrice > 25000 && purchasePrice <= 75000) {
+      return 435 + ((purchasePrice - 25000) / 100).ceil() * 2.25;
+    } else if (purchasePrice > 75000 && purchasePrice <= 200000) {
+      return 1560 + ((purchasePrice - 75000) / 100).ceil() * 3.5;
+    } else if (purchasePrice > 200000 && purchasePrice <= 375000) {
+      return 5935 + ((purchasePrice - 200000) / 100).ceil() * 4;
+    } else if (purchasePrice > 375000 && purchasePrice <= 725000) {
+      return 12935 + ((purchasePrice - 375000) / 100).ceil() * 4.25;
+    } else {
+      return 27810 + ((purchasePrice - 725000) / 100).ceil() * 4.5;
+    }
+  }
 
   // ACT Stamp Duty
 
