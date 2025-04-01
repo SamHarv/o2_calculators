@@ -111,8 +111,37 @@ class MortgageCalculatorLogic {
   }
 
   // ACT Stamp Duty
+  double actCalculateStampDuty(double purchasePrice) {
+    if (purchasePrice <= 260000) {
+      return (purchasePrice / 100).ceil() * 0.4;
+    } else if (purchasePrice > 260000 && purchasePrice <= 300000) {
+      return 1040 + ((purchasePrice - 260000) / 100).ceil() * 2.2;
+    } else if (purchasePrice > 300000 && purchasePrice <= 500000) {
+      return 1920 + ((purchasePrice - 300000) / 100).ceil() * 3.4;
+    } else if (purchasePrice > 500000 && purchasePrice <= 750000) {
+      return 8720 + ((purchasePrice - 500000) / 100).ceil() * 4.32;
+    } else if (purchasePrice > 750000 && purchasePrice <= 1000000) {
+      return 19520 + ((purchasePrice - 750000) / 100).ceil() * 5.9;
+    } else if (purchasePrice > 1000000 && purchasePrice <= 1455000) {
+      return 34270 + ((purchasePrice - 1000000) / 100).ceil() * 6.4;
+    } else {
+      return (purchasePrice / 100).ceil() * 4.54;
+    }
+  }
 
   // NT Stamp Duty
+  double ntCalculateStampDuty(double purchasePrice) {
+    final v = purchasePrice / 1000;
+    if (purchasePrice < 525000) {
+      return double.parse((0.06571441 * (v * v) + (15 * v)).toStringAsFixed(2));
+    } else if (purchasePrice >= 525000 && purchasePrice < 3000000) {
+      return double.parse((purchasePrice * 0.0495).toStringAsFixed(2));
+    } else if (purchasePrice >= 3000000 && purchasePrice < 5000000) {
+      return double.parse((purchasePrice * 0.0575).toStringAsFixed(2));
+    } else {
+      return double.parse((purchasePrice * 0.0595).toStringAsFixed(2));
+    }
+  }
 
   // Calculate money needed to borrow to purchase the house
   double calculateFundsNeeded(

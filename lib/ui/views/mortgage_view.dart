@@ -1,4 +1,5 @@
 import 'package:calculators/config/constants.dart';
+import 'package:calculators/logic/mortgage_calculator/state_enum.dart';
 import 'package:calculators/ui/widgets/output_value_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -29,9 +30,12 @@ class _MortgageViewState extends State<MortgageView> {
   final validate = Validation();
   // Number formatter for outputs
   final formatter = NumberFormat('#,##0.00');
+  // Default State or Territory
+  StateTerritory selectedState = StateTerritory.vic; // Default value
 
   @override
   Widget build(BuildContext context) {
+    final mediaWidth = MediaQuery.sizeOf(context).width;
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -72,6 +76,74 @@ class _MortgageViewState extends State<MortgageView> {
                     controller: loanTermController,
                     label: "Loan Term",
                     icon: Icons.schedule,
+                  ),
+                  // State or Territory dropdown
+                  DropdownMenu(
+                    label: Text("State / Territory"),
+                    width: mediaWidth - 64,
+                    menuStyle: MenuStyle(
+                      // Make menu same width as input fields
+                      maximumSize: WidgetStateProperty.all(
+                          Size.fromWidth(mediaWidth - 64)),
+                      backgroundColor: WidgetStateProperty.all(white),
+                      elevation: WidgetStateProperty.all(8),
+                      shape: WidgetStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: kBorderRadius,
+                          side: kBorderSide,
+                        ),
+                      ),
+                    ),
+                    inputDecorationTheme: InputDecorationTheme(
+                      border: inputBorder,
+                      enabledBorder: inputBorder,
+                      focusedBorder: inputBorder,
+                      filled: true,
+                      fillColor: white,
+                      labelStyle: inputFieldStyle,
+                    ),
+                    textStyle: inputFieldStyle,
+                    enableFilter: false,
+                    hintText: "State / Territory",
+                    onSelected: (stateTerritory) {
+                      setState(() {
+                        selectedState = stateTerritory as StateTerritory;
+                      });
+                    },
+                    dropdownMenuEntries: const [
+                      DropdownMenuEntry(
+                        value: StateTerritory.vic,
+                        label: "Victoria",
+                      ),
+                      DropdownMenuEntry(
+                        value: StateTerritory.nsw,
+                        label: "New South Wales",
+                      ),
+                      DropdownMenuEntry(
+                        value: StateTerritory.qld,
+                        label: "Queensland",
+                      ),
+                      DropdownMenuEntry(
+                        value: StateTerritory.sa,
+                        label: "South Australia",
+                      ),
+                      DropdownMenuEntry(
+                        value: StateTerritory.wa,
+                        label: "Western Australia",
+                      ),
+                      DropdownMenuEntry(
+                        value: StateTerritory.nt,
+                        label: "Northern Territory",
+                      ),
+                      DropdownMenuEntry(
+                        value: StateTerritory.act,
+                        label: "Australian Capital Territory",
+                      ),
+                      DropdownMenuEntry(
+                        value: StateTerritory.tas,
+                        label: "Tasmania",
+                      ),
+                    ],
                   ),
                   // Calculate button
                   Tooltip(
@@ -151,8 +223,43 @@ class _MortgageViewState extends State<MortgageView> {
                           context: context,
                           builder: (context) {
                             // Calculate outputs
-                            double stampDuty =
-                                mCLogic.vicCalculateStampDuty(mc.purchasePrice);
+                            // Stamp Duty
+                            double stampDuty = 0;
+                            switch (selectedState) {
+                              case StateTerritory.vic:
+                                stampDuty = mCLogic
+                                    .vicCalculateStampDuty(mc.purchasePrice);
+                                break;
+                              case StateTerritory.nsw:
+                                stampDuty = mCLogic
+                                    .nswCalculateStampDuty(mc.purchasePrice);
+                                break;
+                              case StateTerritory.qld:
+                                stampDuty = mCLogic
+                                    .qldCalculateStampDuty(mc.purchasePrice);
+                                break;
+                              case StateTerritory.sa:
+                                stampDuty = mCLogic
+                                    .saCalculateStampDuty(mc.purchasePrice);
+                                break;
+                              case StateTerritory.wa:
+                                stampDuty = mCLogic
+                                    .waCalculateStampDuty(mc.purchasePrice);
+                                break;
+                              case StateTerritory.nt:
+                                stampDuty = mCLogic
+                                    .ntCalculateStampDuty(mc.purchasePrice);
+                                break;
+                              case StateTerritory.act:
+                                stampDuty = mCLogic
+                                    .actCalculateStampDuty(mc.purchasePrice);
+                                break;
+                              case StateTerritory.tas:
+                                stampDuty = mCLogic
+                                    .tasCalculateStampDuty(mc.purchasePrice);
+                                break;
+                            }
+
                             double loanAmount = mCLogic.calculateFundsNeeded(
                                 mc.initialDeposit, mc.purchasePrice, stampDuty);
                             double totalNumberWeeklyPayments = mCLogic

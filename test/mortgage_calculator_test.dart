@@ -137,5 +137,49 @@ void main() {
       // Test 12
       expect(mortgageCalculatorLogic.tasCalculateStampDuty(725001), 27814.5);
     });
+
+    test('ACT Stamp Duty Calculation', () {
+      // Test the ACT stamp duty calculation
+      // Test 1
+      expect(mortgageCalculatorLogic.actCalculateStampDuty(260000), 1040.0);
+      // Test 2
+      expect(mortgageCalculatorLogic.actCalculateStampDuty(260001), 1042.2);
+      // Test 3
+      expect(mortgageCalculatorLogic.actCalculateStampDuty(300000), 1920.0);
+      // Test 4
+      expect(mortgageCalculatorLogic.actCalculateStampDuty(300001), 1923.4);
+      // Test 5
+      expect(mortgageCalculatorLogic.actCalculateStampDuty(500000), 8720.0);
+      // Test 6
+      expect(mortgageCalculatorLogic.actCalculateStampDuty(500001), 8724.32);
+      // Test 7
+      expect(mortgageCalculatorLogic.actCalculateStampDuty(750000), 19520.0);
+      // Test 8
+      expect(mortgageCalculatorLogic.actCalculateStampDuty(750001), 19525.9);
+      // Test 9
+      expect(mortgageCalculatorLogic.actCalculateStampDuty(1000000), 34270.0);
+      // Test 10
+      expect(mortgageCalculatorLogic.actCalculateStampDuty(1000001), 34276.4);
+      // Test 11
+      expect(mortgageCalculatorLogic.actCalculateStampDuty(1455000), 63390.0);
+      // Test 12
+      expect(mortgageCalculatorLogic.actCalculateStampDuty(1455001), 66061.54);
+    });
+
+    test('NT Stamp Duty Calculation', () {
+      // Test the NT stamp duty calculation
+      // Test 1
+      expect(mortgageCalculatorLogic.ntCalculateStampDuty(524999), 25987.45);
+      // Test 2
+      expect(mortgageCalculatorLogic.ntCalculateStampDuty(525000), 25987.5);
+      // Test 3
+      expect(mortgageCalculatorLogic.ntCalculateStampDuty(2999999), 148499.95);
+      // Test 4
+      expect(mortgageCalculatorLogic.ntCalculateStampDuty(3000000), 172500.0);
+      // Test 5
+      expect(mortgageCalculatorLogic.ntCalculateStampDuty(4999999), 287499.94);
+      // Test 6
+      expect(mortgageCalculatorLogic.ntCalculateStampDuty(5000000), 297500.0);
+    });
   });
 }
