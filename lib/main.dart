@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:calculators/config/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,14 +27,14 @@ class O2TechCalculators extends StatelessWidget {
       theme: ThemeData(
         fontFamily: GoogleFonts.openSans().fontFamily,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.greenAccent,
+          seedColor: green,
           secondary: Colors.black,
         ),
         textTheme: GoogleFonts.openSansTextTheme().apply(
           bodyColor: Colors.black,
           displayColor: Colors.black,
         ),
-        scaffoldBackgroundColor: Colors.greenAccent,
+        scaffoldBackgroundColor: green,
         appBarTheme: AppBarTheme(
           color: Colors.transparent,
           systemOverlayStyle: SystemUiOverlayStyle(

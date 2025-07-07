@@ -23,18 +23,18 @@ class MortgageCalculatorLogic {
   double nswCalculateStampDuty(double purchasePrice) {
     if (purchasePrice <= 17000) {
       return (purchasePrice / 100) * 1.25;
-    } else if (purchasePrice > 17000 && purchasePrice <= 36000) {
+    } else if (purchasePrice > 17000 && purchasePrice <= 37000) {
       return 212 + ((purchasePrice - 17000) / 100) * 1.5;
-    } else if (purchasePrice > 36000 && purchasePrice <= 97000) {
-      return 497 + ((purchasePrice - 36000) / 100) * 1.75;
-    } else if (purchasePrice > 97000 && purchasePrice <= 364000) {
-      return 1564 + ((purchasePrice - 97000) / 100) * 3.5;
-    } else if (purchasePrice > 364000 && purchasePrice <= 1212000) {
-      return 10909 + ((purchasePrice - 364000) / 100) * 4.5;
-    } else if (purchasePrice > 1212000 && purchasePrice <= 3636000) {
-      return 49069 + ((purchasePrice - 1212000) / 100) * 5.5;
+    } else if (purchasePrice > 37000 && purchasePrice <= 99000) {
+      return 512 + ((purchasePrice - 37000) / 100) * 1.75;
+    } else if (purchasePrice > 99000 && purchasePrice <= 372000) {
+      return 1597 + ((purchasePrice - 99000) / 100) * 3.5;
+    } else if (purchasePrice > 372000 && purchasePrice <= 1240000) {
+      return 11152 + ((purchasePrice - 372000) / 100) * 4.5;
+    } else if (purchasePrice > 1240000 && purchasePrice <= 3721000) {
+      return 50212 + ((purchasePrice - 1240000) / 100) * 5.5;
     } else {
-      return 182389 + ((purchasePrice - 3636000) / 100) * 7;
+      return 186667 + ((purchasePrice - 3721000) / 100) * 7;
     }
   }
 
@@ -113,17 +113,17 @@ class MortgageCalculatorLogic {
   // ACT Stamp Duty
   double actCalculateStampDuty(double purchasePrice) {
     if (purchasePrice <= 260000) {
-      return (purchasePrice / 100).ceil() * 0.4;
+      return (purchasePrice / 100).ceil() * 0.28;
     } else if (purchasePrice > 260000 && purchasePrice <= 300000) {
-      return 1040 + ((purchasePrice - 260000) / 100).ceil() * 2.2;
+      return 728 + ((purchasePrice - 260000) / 100).ceil() * 2.2;
     } else if (purchasePrice > 300000 && purchasePrice <= 500000) {
-      return 1920 + ((purchasePrice - 300000) / 100).ceil() * 3.4;
+      return 1608 + ((purchasePrice - 300000) / 100).ceil() * 3.4;
     } else if (purchasePrice > 500000 && purchasePrice <= 750000) {
-      return 8720 + ((purchasePrice - 500000) / 100).ceil() * 4.32;
+      return 8408 + ((purchasePrice - 500000) / 100).ceil() * 4.32;
     } else if (purchasePrice > 750000 && purchasePrice <= 1000000) {
-      return 19520 + ((purchasePrice - 750000) / 100).ceil() * 5.9;
+      return 19208 + ((purchasePrice - 750000) / 100).ceil() * 5.9;
     } else if (purchasePrice > 1000000 && purchasePrice <= 1455000) {
-      return 34270 + ((purchasePrice - 1000000) / 100).ceil() * 6.4;
+      return 33958 + ((purchasePrice - 1000000) / 100).ceil() * 6.4;
     } else {
       return (purchasePrice / 100).ceil() * 4.54;
     }
